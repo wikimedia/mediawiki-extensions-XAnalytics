@@ -1,0 +1,8 @@
+{
+    "@metadata": {
+        "authors": [
+            "Ori Livneh"
+        ]
+    },
+    "xanalytics-desc": "Emit analytics data via an X-Analytics header"
+}
