@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Metalhead64"
+		]
+	},
+	"xanalytics-desc": "Ermöglicht die Ausgabe von Analysedaten über einen X-Analytics-Header"
+}
