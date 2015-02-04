@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Element303"
+		]
+	},
+	"xanalytics-desc": "Émettre les données d'analyse par le biais d'un en-tête X-Analytics"
+}
