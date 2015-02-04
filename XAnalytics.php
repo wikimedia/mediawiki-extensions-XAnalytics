@@ -45,7 +45,7 @@ $wgHooks['BeforePageDisplay'][] = function ( OutputPage &$out, Skin &$skin ) {
 	wfRunHooks( 'XAnalyticsSetHeader', array( $out, &$headerItems ) );
 
 	if ( count( $headerItems ) ) {
-		$headerValue = http_build_query( $headerItems, null, '; ' );
+		$headerValue = http_build_query( $headerItems, null, ';' );
 		$response->header( 'X-Analytics: ' . $headerValue, true );
 	}
 };
