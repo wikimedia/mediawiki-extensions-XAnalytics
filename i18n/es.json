@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Fitoschido"
+		]
+	},
+	"xanalytics-desc": "Emitir datos de análisis mediante una cabecera X-Analytics"
+}
