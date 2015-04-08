@@ -16,6 +16,16 @@ class XAnalytics {
 	 * @see https://wikitech.wikimedia.org/wiki/X-Analytics
 	 */
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
+		self::generateHeader( $out );
+	}
+
+	private static function generateHeader( OutputPage $out ) {
+		static $called = null;
+		if ( $called === true ) {
+			// Only run once for API requests that use OutputPage
+			return;
+		}
+		$called = true;
 		$response = $out->getRequest()->response();
 		$currentHeader = $response->getHeader( 'X-Analytics' );
 		parse_str( preg_replace( '/; */', '&', $currentHeader ), $headerItems );
@@ -25,5 +35,9 @@ class XAnalytics {
 			$headerValue = http_build_query( $headerItems, null, ';' );
 			$response->header( 'X-Analytics: ' . $headerValue, true );
 		}
+	}
+
+	public static function onAPIAfterExecute( ApiBase &$module ) {
+		self::generateHeader( $module->getOutput() );
 	}
 }

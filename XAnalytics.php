@@ -28,3 +28,4 @@ $wgAutoloadClasses['XAnalytics'] = __DIR__ . '/XAnalytics.class.php';
 // Hooks
 
 $wgHooks['BeforePageDisplay'][] = 'XAnalytics::onBeforePageDisplay';
+$wgHooks['APIAfterExecute'][] = 'XAnalytics::onAPIAfterExecute';
