@@ -1,6 +1,19 @@
 <?php
 
 class XAnalytics {
+
+	/**
+	 * Items to add to the header
+	 *
+	 * @var array
+	 */
+	private static $items = array();
+	/**
+	 * Whether the header has already been added
+	 *
+	 * @var bool
+	 */
+	private static $addedHeader = false;
 	/**
 	 * Set X-Analytics header before the output buffer is flushed.
 	 *
@@ -11,7 +24,8 @@ class XAnalytics {
 	 * responses is done in one place, however, so for that use-case, the code is
 	 * reliable.
 	 *
-	 * X-Analytics items can be declared by hooking into 'XAnalyticsSetHeader'.
+	 * X-Analytics items can be declared by hooking into 'XAnalyticsSetHeader' or
+	 * by calling XAnalytics;:addItem().
 	 *
 	 * @see https://wikitech.wikimedia.org/wiki/X-Analytics
 	 */
@@ -19,25 +33,55 @@ class XAnalytics {
 		self::generateHeader( $out );
 	}
 
+	/**
+	 * Runs the XAnalyticsSetHeader hook and adds the header if necessary
+	 * @param OutputPage $out
+	 */
 	private static function generateHeader( OutputPage $out ) {
-		static $called = null;
-		if ( $called === true ) {
+		if ( self::$addedHeader === true ) {
 			// Only run once for API requests that use OutputPage
 			return;
 		}
-		$called = true;
+		self::$addedHeader = true;
 		$response = $out->getRequest()->response();
+		$headerItems = array();
+		Hooks::run( 'XAnalyticsSetHeader', array( $out, &$headerItems ) );
+		if ( count( $headerItems ) ) {
+			self::createHeader( $response, $headerItems );
+		}
+	}
+
+	/**
+	 * Checks to see if the X-Analytics header is already set, and add
+	 * the new items to the header and set it
+	 *
+	 * @param WebResponse $response
+	 * @param array $newItems
+	 */
+	private static function createHeader( WebResponse $response, array $newItems ) {
 		$currentHeader = $response->getHeader( 'X-Analytics' );
 		parse_str( preg_replace( '/; */', '&', $currentHeader ), $headerItems );
-		Hooks::run( 'XAnalyticsSetHeader', array( $out, &$headerItems ) );
+		$headerItems = array_merge( $headerItems, $newItems );
 
-		if ( count( $headerItems ) ) {
-			$headerValue = http_build_query( $headerItems, null, ';' );
-			$response->header( 'X-Analytics: ' . $headerValue, true );
-		}
+		$headerValue = http_build_query( $headerItems, null, ';' );
+		$response->header( 'X-Analytics: ' . $headerValue, true );
 	}
 
 	public static function onAPIAfterExecute( ApiBase &$module ) {
 		self::generateHeader( $module->getOutput() );
+	}
+
+	/**
+	 * Add an item to the X-Analytics header that will be output
+	 * @param string $name
+	 * @param string $value
+	 */
+	public static function addItem( $name, $value ) {
+		if ( self::$addedHeader ) {
+			// If the header is already set, we need to append to it and replace it
+			global $wgRequest;
+			self::createHeader( $wgRequest->response(), array( $name => $value ) );
+		}
+		self::$items[$name] = $value;
 	}
 }
