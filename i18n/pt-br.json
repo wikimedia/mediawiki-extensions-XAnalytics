@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Dianakc"
+		]
+	},
+	"xanalytics-desc": "Emitem dados de análise através de um cabeçalho X-Analytics"
+}
