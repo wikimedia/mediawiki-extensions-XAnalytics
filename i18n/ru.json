@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Okras"
+		]
+	},
+	"xanalytics-desc": "Выделяет аналитические данные с помощью заголовка X-Analytics"
+}
