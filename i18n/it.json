@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Beta16"
+		]
+	},
+	"xanalytics-desc": "Emette dati di analisi attraverso un'intestazione X-Analytics"
+}
