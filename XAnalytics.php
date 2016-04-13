@@ -15,6 +15,7 @@ $wgExtensionCredits['other'][] = array(
 	'url' => 'https://wikitech.wikimedia.org/wiki/X-Analytics',
 	'author' => 'Ori Livneh',
 	'descriptionmsg' => 'xanalytics-desc',
+	'license-name' => 'GPL-2.0+'
 );
 
 // Messages
