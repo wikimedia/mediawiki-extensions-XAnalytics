@@ -1,32 +1,14 @@
 <?php
-/**
- * Emit structured analytics data via an X-Analytics HTTP header.
- *
- * @see https://wikitech.wikimedia.org/wiki/X-Analytics
- * @author Ori Livneh <ori@wikimedia.org>
- * @license GPLv2
- * @version 0.1
- */
-
-$wgExtensionCredits['other'][] = array(
-	'path' => __FILE__,
-	'name' => 'XAnalytics',
-	'version' => '0.1',
-	'url' => 'https://wikitech.wikimedia.org/wiki/X-Analytics',
-	'author' => 'Ori Livneh',
-	'descriptionmsg' => 'xanalytics-desc',
-	'license-name' => 'GPL-2.0+'
-);
-
-// Messages
-
-$wgMessagesDirs['XAnalytics'] = __DIR__ . '/i18n';
-
-// Autoload
-
-$wgAutoloadClasses['XAnalytics'] = __DIR__ . '/XAnalytics.class.php';
-
-// Hooks
-
-$wgHooks['BeforePageDisplay'][] = 'XAnalytics::onBeforePageDisplay';
-$wgHooks['APIAfterExecute'][] = 'XAnalytics::onAPIAfterExecute';
+if ( function_exists( 'wfLoadExtension' ) ) {
+	wfLoadExtension( 'XAnalytics' );
+	// Keep i18n globals so mergeMessageFileList.php doesn't break
+	$wgMessagesDirs['XAnalytics'] = __DIR__ . '/i18n';
+	/*wfWarn(
+		'Deprecated PHP entry point used for XAnalytics extension. ' .
+		'Please use wfLoadExtension instead, ' .
+		'see https://www.mediawiki.org/wiki/Extension_registration for more details.'
+	);*/
+	return;
+} else {
+	die( 'This version of the XAnalytics extension requires MediaWiki 1.25+' );
+}

@@ -1,0 +1,28 @@
+{
+	"name": "XAnalytics",
+	"license-name": "GPL-2.0+",
+	"url": "https://wikitech.wikimedia.org/wiki/X-Analytics",
+	"descriptionmsg": "xanalytics-desc",
+	"author": [
+		"Ori Livneh"
+	],
+	"version": "0.1",
+	"type": "other",
+	"AutoloadClasses": {
+		"XAnalytics": "XAnalytics.class.php"
+	},
+	"MessageDirs": {
+		"XAnalytics": [
+			"i18n"
+		]
+	},
+	"Hooks": {
+		"BeforePageDisplay": [
+			"XAnalytics::onBeforePageDisplay"
+		],
+		"APIAfterExecute": [
+			"XAnalytics::onAPIAfterExecute"
+		]
+	},
+	"manifest_version": 1
+}
