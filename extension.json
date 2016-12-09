@@ -11,7 +11,7 @@
 	"AutoloadClasses": {
 		"XAnalytics": "XAnalytics.class.php"
 	},
-	"MessageDirs": {
+	"MessagesDirs": {
 		"XAnalytics": [
 			"i18n"
 		]
