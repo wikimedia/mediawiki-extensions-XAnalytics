@@ -3,12 +3,6 @@
 class XAnalytics {
 
 	/**
-	 * Items to add to the header
-	 *
-	 * @var array
-	 */
-	private static $items = array();
-	/**
 	 * Whether the header has already been added
 	 *
 	 * @var bool
@@ -82,6 +76,5 @@ class XAnalytics {
 			global $wgRequest;
 			self::createHeader( $wgRequest->response(), array( $name => $value ) );
 		}
-		self::$items[$name] = $value;
 	}
 }
