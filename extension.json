@@ -6,7 +6,7 @@
 	"author": [
 		"Ori Livneh"
 	],
-	"version": "0.1",
+	"version": "0.2",
 	"type": "other",
 	"AutoloadClasses": {
 		"XAnalytics": "XAnalytics.class.php"
