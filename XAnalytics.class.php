@@ -38,8 +38,8 @@ class XAnalytics {
 		}
 		self::$addedHeader = true;
 		$response = $out->getRequest()->response();
-		$headerItems = array();
-		Hooks::run( 'XAnalyticsSetHeader', array( $out, &$headerItems ) );
+		$headerItems = [];
+		Hooks::run( 'XAnalyticsSetHeader', [ $out, &$headerItems ] );
 		if ( count( $headerItems ) ) {
 			self::createHeader( $response, $headerItems );
 		}
@@ -74,7 +74,7 @@ class XAnalytics {
 		if ( self::$addedHeader ) {
 			// If the header is already set, we need to append to it and replace it
 			global $wgRequest;
-			self::createHeader( $wgRequest->response(), array( $name => $value ) );
+			self::createHeader( $wgRequest->response(), [ $name => $value ] );
 		}
 	}
 }
