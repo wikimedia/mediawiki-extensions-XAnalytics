@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hamilton Abreu"
+		]
+	},
+	"xanalytics-desc": "Emitir dados analíticos através de um cabeçalho X-Analytics"
+}
