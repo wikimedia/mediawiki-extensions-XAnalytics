@@ -8,6 +8,7 @@ class XAnalytics {
 	 * @var bool
 	 */
 	private static $addedHeader = false;
+
 	/**
 	 * Set X-Analytics header before the output buffer is flushed.
 	 *
@@ -22,6 +23,8 @@ class XAnalytics {
 	 * by calling XAnalytics;:addItem().
 	 *
 	 * @see https://wikitech.wikimedia.org/wiki/X-Analytics
+	 * @param OutputPage &$out
+	 * @param Skin &$skin
 	 */
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
 		self::generateHeader( $out );
