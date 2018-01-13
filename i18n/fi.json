@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Pyscowicz"
+		]
+	},
+	"xanalytics-desc": "Lähettää analyysitietoja X-Analytics-ylätunnisteen kautta"
+}
