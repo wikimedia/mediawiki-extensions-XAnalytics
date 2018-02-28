@@ -1,6 +1,6 @@
 {
 	"name": "XAnalytics",
-	"license-name": "GPL-2.0+",
+	"license-name": "GPL-2.0-or-later",
 	"url": "https://wikitech.wikimedia.org/wiki/X-Analytics",
 	"descriptionmsg": "xanalytics-desc",
 	"author": [
