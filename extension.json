@@ -9,7 +9,7 @@
 	"version": "0.2",
 	"type": "other",
 	"AutoloadClasses": {
-		"XAnalytics": "XAnalytics.class.php"
+		"XAnalytics": "includes/XAnalytics.php"
 	},
 	"MessagesDirs": {
 		"XAnalytics": [
