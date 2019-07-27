@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Afaz"
+		]
+	},
+	"xanalytics-desc": "X-Analyticsヘッダを介して分析データを送信する"
+}
