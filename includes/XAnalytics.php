@@ -43,6 +43,7 @@ class XAnalytics {
 		$response = $out->getRequest()->response();
 		$headerItems = [];
 		Hooks::run( 'XAnalyticsSetHeader', [ $out, &$headerItems ] );
+		// @phan-suppress-next-line PhanImpossibleCondition May set by hook
 		if ( count( $headerItems ) ) {
 			self::createHeader( $response, $headerItems );
 		}
