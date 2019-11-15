@@ -23,10 +23,10 @@ class XAnalytics {
 	 * by calling XAnalytics;:addItem().
 	 *
 	 * @see https://wikitech.wikimedia.org/wiki/X-Analytics
-	 * @param OutputPage &$out
-	 * @param Skin &$skin
+	 * @param OutputPage $out
+	 * @param Skin $skin
 	 */
-	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
+	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
 		self::generateHeader( $out );
 	}
 
@@ -65,7 +65,7 @@ class XAnalytics {
 		$response->header( 'X-Analytics: ' . $headerValue, true );
 	}
 
-	public static function onAPIAfterExecute( ApiBase &$module ) {
+	public static function onAPIAfterExecute( ApiBase $module ) {
 		self::generateHeader( $module->getOutput() );
 	}
 
