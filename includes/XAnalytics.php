@@ -61,7 +61,7 @@ class XAnalytics {
 		parse_str( preg_replace( '/; */', '&', $currentHeader ), $headerItems );
 		$headerItems = array_merge( $headerItems, $newItems );
 
-		$headerValue = http_build_query( $headerItems, null, ';' );
+		$headerValue = http_build_query( $headerItems, '', ';' );
 		$response->header( 'X-Analytics: ' . $headerValue, true );
 	}
 
