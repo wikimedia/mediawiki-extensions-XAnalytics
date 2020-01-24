@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mainframe98"
+		]
+	},
+	"xanalytics-desc": "Maakt analyticsinformatie beschikbaar via een X-Analytics header"
+}
