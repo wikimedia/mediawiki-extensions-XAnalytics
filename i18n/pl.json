@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Rail"
+		]
+	},
+	"xanalytics-desc": "Emituje dane analityczne przez nagłówek X-Analytics"
+}
