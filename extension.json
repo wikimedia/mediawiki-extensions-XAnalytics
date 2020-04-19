@@ -6,10 +6,17 @@
 	"author": [
 		"Ori Livneh"
 	],
-	"version": "0.2",
+	"version": "0.3",
 	"type": "other",
+	"require": {
+		"MediaWiki": ">= 1.31.0"
+	},
 	"AutoloadClasses": {
-		"XAnalytics": "includes/XAnalytics.php"
+		"XAnalytics": "includes/XAnalytics.php",
+		"MediaWiki\\Extensions\\XAnalytics\\XAnalytics": "includes/XAnalytics.php"
+	},
+	"AutoloadNamespaces": {
+		"MediaWiki\\Extensions\\XAnalytics\\": "includes/"
 	},
 	"MessagesDirs": {
 		"XAnalytics": [
@@ -17,12 +24,8 @@
 		]
 	},
 	"Hooks": {
-		"BeforePageDisplay": [
-			"XAnalytics::onBeforePageDisplay"
-		],
-		"APIAfterExecute": [
-			"XAnalytics::onAPIAfterExecute"
-		]
+		"BeforePageDisplay": "MediaWiki\\Extensions\\XAnalytics\\XAnalytics::onBeforePageDisplay",
+		"APIAfterExecute": "MediaWiki\\Extensions\\XAnalytics\\XAnalytics::onAPIAfterExecute"
 	},
 	"manifest_version": 1
 }

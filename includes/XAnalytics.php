@@ -1,5 +1,13 @@
 <?php
 
+namespace MediaWiki\Extensions\XAnalytics;
+
+use ApiBase;
+use Hooks;
+use OutputPage;
+use Skin;
+use WebResponse;
+
 class XAnalytics {
 
 	/**
@@ -82,3 +90,5 @@ class XAnalytics {
 		}
 	}
 }
+
+class_alias( XAnalytics::class, 'XAnalytics' );
