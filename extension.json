@@ -11,10 +11,6 @@
 	"require": {
 		"MediaWiki": ">= 1.31.0"
 	},
-	"AutoloadClasses": {
-		"XAnalytics": "includes/XAnalytics.php",
-		"MediaWiki\\Extensions\\XAnalytics\\XAnalytics": "includes/XAnalytics.php"
-	},
 	"AutoloadNamespaces": {
 		"MediaWiki\\Extensions\\XAnalytics\\": "includes/"
 	},

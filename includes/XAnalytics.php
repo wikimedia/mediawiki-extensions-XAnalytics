@@ -90,5 +90,3 @@ class XAnalytics {
 		}
 	}
 }
-
-class_alias( XAnalytics::class, 'XAnalytics' );
