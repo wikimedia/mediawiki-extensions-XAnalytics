@@ -8,7 +8,7 @@
 	],
 	"version": "0.3",
 	"type": "other",
-	"require": {
+	"requires": {
 		"MediaWiki": ">= 1.31.0"
 	},
 	"AutoloadNamespaces": {
@@ -23,5 +23,5 @@
 		"BeforePageDisplay": "MediaWiki\\Extensions\\XAnalytics\\XAnalytics::onBeforePageDisplay",
 		"APIAfterExecute": "MediaWiki\\Extensions\\XAnalytics\\XAnalytics::onAPIAfterExecute"
 	},
-	"manifest_version": 1
+	"manifest_version": 2
 }
