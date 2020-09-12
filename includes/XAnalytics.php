@@ -73,6 +73,9 @@ class XAnalytics {
 		$response->header( 'X-Analytics: ' . $headerValue, true );
 	}
 
+	/**
+	 * @param ApiBase $module
+	 */
 	public static function onAPIAfterExecute( ApiBase $module ) {
 		self::generateHeader( $module->getOutput() );
 	}
