@@ -92,5 +92,3 @@ class XAnalytics {
 		}
 	}
 }
-
-class_alias( XAnalytics::class, "MediaWiki\\Extensions\\XAnalytics\\XAnalytics" );
