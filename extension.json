@@ -12,6 +12,7 @@
 		"MediaWiki": ">= 1.31.0"
 	},
 	"AutoloadNamespaces": {
+		"MediaWiki\\Extension\\XAnalytics\\": "includes/",
 		"MediaWiki\\Extensions\\XAnalytics\\": "includes/"
 	},
 	"MessagesDirs": {
@@ -20,8 +21,8 @@
 		]
 	},
 	"Hooks": {
-		"BeforePageDisplay": "MediaWiki\\Extensions\\XAnalytics\\XAnalytics::onBeforePageDisplay",
-		"APIAfterExecute": "MediaWiki\\Extensions\\XAnalytics\\XAnalytics::onAPIAfterExecute"
+		"BeforePageDisplay": "MediaWiki\\Extension\\XAnalytics\\XAnalytics::onBeforePageDisplay",
+		"APIAfterExecute": "MediaWiki\\Extension\\XAnalytics\\XAnalytics::onAPIAfterExecute"
 	},
 	"manifest_version": 2
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace MediaWiki\Extensions\XAnalytics;
+namespace MediaWiki\Extension\XAnalytics;
 
 use ApiBase;
 use Hooks;
@@ -92,3 +92,5 @@ class XAnalytics {
 		}
 	}
 }
+
+class_alias( XAnalytics::class, "MediaWiki\\Extensions\\XAnalytics\\XAnalytics" );
