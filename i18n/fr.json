@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Element303"
+			"Element303",
+			"Verdy p"
 		]
 	},
-	"xanalytics-desc": "Émettre les données d'analyse par le biais d'un en-tête X-Analytics"
+	"xanalytics-desc": "Émet des données analytiques au moyen d’un en-tête « X-Analytics »."
 }
