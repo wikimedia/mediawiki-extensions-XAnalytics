@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eleassar"
+		]
+	},
+	"xanalytics-desc": "Pošiljanje analitičnih podatkov prek glave X-Analytics"
+}
