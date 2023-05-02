@@ -3,7 +3,7 @@
 namespace MediaWiki\Extension\XAnalytics;
 
 use ApiBase;
-use Hooks;
+use MediaWiki\MediaWikiServices;
 use OutputPage;
 use Skin;
 use WebResponse;
@@ -50,7 +50,7 @@ class XAnalytics {
 		self::$addedHeader = true;
 		$response = $out->getRequest()->response();
 		$headerItems = [];
-		Hooks::run( 'XAnalyticsSetHeader', [ $out, &$headerItems ] );
+		MediaWikiServices::getInstance()->getHookContainer()->run( 'XAnalyticsSetHeader', [ $out, &$headerItems ] );
 		if ( count( $headerItems ) ) {
 			self::createHeader( $response, $headerItems );
 		}
