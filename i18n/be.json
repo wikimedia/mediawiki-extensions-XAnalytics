@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Chadyka"
+			"Chadyka",
+			"Maksim L."
 		]
 	},
-	"xanalytics-desc": "Вылучае аналітычныя дадзеныя з дапамогай загалоўку X-Analytics"
+	"xanalytics-desc": "Вылучае аналітычныя даныя праз загаловак X-Analytics"
 }
