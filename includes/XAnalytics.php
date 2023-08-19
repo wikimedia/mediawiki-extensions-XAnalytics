@@ -5,9 +5,9 @@ namespace MediaWiki\Extension\XAnalytics;
 use ApiBase;
 use MediaWiki\Extension\XAnalytics\Hooks\HookRunner;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Request\WebResponse;
 use OutputPage;
 use Skin;
-use WebResponse;
 
 class XAnalytics {
 
