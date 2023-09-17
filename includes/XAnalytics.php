@@ -3,13 +3,18 @@
 namespace MediaWiki\Extension\XAnalytics;
 
 use ApiBase;
+use MediaWiki\Api\Hook\APIAfterExecuteHook;
 use MediaWiki\Extension\XAnalytics\Hooks\HookRunner;
+use MediaWiki\Hook\BeforePageDisplayHook;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\WebResponse;
 use OutputPage;
 use Skin;
 
-class XAnalytics {
+class XAnalytics implements
+	BeforePageDisplayHook,
+	APIAfterExecuteHook
+{
 
 	/**
 	 * Whether the header has already been added
@@ -35,7 +40,7 @@ class XAnalytics {
 	 * @param OutputPage $out
 	 * @param Skin $skin
 	 */
-	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
+	public function onBeforePageDisplay( $out, $skin ): void {
 		self::generateHeader( $out );
 	}
 
@@ -77,7 +82,7 @@ class XAnalytics {
 	/**
 	 * @param ApiBase $module
 	 */
-	public static function onAPIAfterExecute( ApiBase $module ) {
+	public function onAPIAfterExecute( $module ) {
 		self::generateHeader( $module->getOutput() );
 	}
 

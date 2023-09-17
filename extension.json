@@ -20,8 +20,13 @@
 		]
 	},
 	"Hooks": {
-		"BeforePageDisplay": "MediaWiki\\Extension\\XAnalytics\\XAnalytics::onBeforePageDisplay",
-		"APIAfterExecute": "MediaWiki\\Extension\\XAnalytics\\XAnalytics::onAPIAfterExecute"
+		"BeforePageDisplay": "main",
+		"APIAfterExecute": "main"
+	},
+	"HookHandlers": {
+		"main": {
+			"class": "MediaWiki\\Extension\\XAnalytics\\XAnalytics"
+		}
 	},
 	"manifest_version": 2
 }
