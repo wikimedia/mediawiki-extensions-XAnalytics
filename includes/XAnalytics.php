@@ -71,7 +71,7 @@ class XAnalytics implements
 	 * @param array $newItems
 	 */
 	private static function createHeader( WebResponse $response, array $newItems ) {
-		$currentHeader = $response->getHeader( 'X-Analytics' );
+		$currentHeader = $response->getHeader( 'X-Analytics' ) ?? '';
 		parse_str( preg_replace( '/; */', '&', $currentHeader ), $headerItems );
 		$headerItems = array_merge( $headerItems, $newItems );
 
