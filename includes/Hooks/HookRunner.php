@@ -3,7 +3,7 @@
 namespace MediaWiki\Extension\XAnalytics\Hooks;
 
 use MediaWiki\HookContainer\HookContainer;
-use OutputPage;
+use MediaWiki\Output\OutputPage;
 
 /**
  * This is a hook runner class, see docs/Hooks.md in core.

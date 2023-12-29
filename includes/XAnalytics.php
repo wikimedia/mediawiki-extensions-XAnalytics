@@ -7,8 +7,8 @@ use MediaWiki\Api\Hook\APIAfterExecuteHook;
 use MediaWiki\Extension\XAnalytics\Hooks\HookRunner;
 use MediaWiki\Hook\BeforePageDisplayHook;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\WebResponse;
-use OutputPage;
 use Skin;
 
 class XAnalytics implements
