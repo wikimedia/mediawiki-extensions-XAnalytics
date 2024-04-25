@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ykhwong"
+		]
+	},
+	"xanalytics-desc": "X-Analytics 헤더를 통해 분석 데이터를 내보냅니다"
+}
