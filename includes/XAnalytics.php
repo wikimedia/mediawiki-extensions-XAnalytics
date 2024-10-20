@@ -2,7 +2,7 @@
 
 namespace MediaWiki\Extension\XAnalytics;
 
-use ApiBase;
+use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\Hook\APIAfterExecuteHook;
 use MediaWiki\Extension\XAnalytics\Hooks\HookRunner;
 use MediaWiki\MediaWikiServices;
