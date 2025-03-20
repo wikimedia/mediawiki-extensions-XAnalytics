@@ -9,7 +9,7 @@
 	"version": "0.3",
 	"type": "other",
 	"requires": {
-		"MediaWiki": ">= 1.43"
+		"MediaWiki": ">= 1.44"
 	},
 	"AutoloadNamespaces": {
 		"MediaWiki\\Extension\\XAnalytics\\": "includes/"
