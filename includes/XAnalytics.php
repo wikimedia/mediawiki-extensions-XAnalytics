@@ -9,7 +9,7 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Output\Hook\BeforePageDisplayHook;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\WebResponse;
-use Skin;
+use MediaWiki\Skin\Skin;
 
 class XAnalytics implements
 	BeforePageDisplayHook,
