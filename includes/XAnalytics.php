@@ -2,26 +2,20 @@
 
 namespace MediaWiki\Extension\XAnalytics;
 
-use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\Hook\APIAfterExecuteHook;
 use MediaWiki\Extension\XAnalytics\Hooks\HookRunner;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Output\Hook\BeforePageDisplayHook;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\WebResponse;
-use MediaWiki\Skin\Skin;
 
 class XAnalytics implements
 	BeforePageDisplayHook,
 	APIAfterExecuteHook
 {
 
-	/**
-	 * Whether the header has already been added
-	 *
-	 * @var bool
-	 */
-	private static $addedHeader = false;
+	/** Whether the header has already been added */
+	private static bool $addedHeader = false;
 
 	/**
 	 * Set X-Analytics header before the output buffer is flushed.
@@ -36,8 +30,7 @@ class XAnalytics implements
 	 * X-Analytics items can be declared by hooking into 'XAnalyticsSetHeader'.
 	 *
 	 * @see https://wikitech.wikimedia.org/wiki/X-Analytics
-	 * @param OutputPage $out
-	 * @param Skin $skin
+	 * @inheritDoc
 	 */
 	public function onBeforePageDisplay( $out, $skin ): void {
 		self::generateHeader( $out );
@@ -45,10 +38,9 @@ class XAnalytics implements
 
 	/**
 	 * Runs the XAnalyticsSetHeader hook and adds the header if necessary
-	 * @param OutputPage $out
 	 */
-	private static function generateHeader( OutputPage $out ) {
-		if ( self::$addedHeader === true ) {
+	private static function generateHeader( OutputPage $out ): void {
+		if ( self::$addedHeader ) {
 			// Only run once for API requests that use OutputPage
 			return;
 		}
@@ -57,7 +49,7 @@ class XAnalytics implements
 		$headerItems = [];
 		( new HookRunner( MediaWikiServices::getInstance()->getHookContainer() ) )
 			->onXAnalyticsSetHeader( $out, $headerItems );
-		if ( count( $headerItems ) ) {
+		if ( $headerItems ) {
 			self::createHeader( $response, $headerItems );
 		}
 	}
@@ -65,11 +57,8 @@ class XAnalytics implements
 	/**
 	 * Checks to see if the X-Analytics header is already set, and add
 	 * the new items to the header and set it
-	 *
-	 * @param WebResponse $response
-	 * @param array $newItems
 	 */
-	private static function createHeader( WebResponse $response, array $newItems ) {
+	private static function createHeader( WebResponse $response, array $newItems ): void {
 		$currentHeader = $response->getHeader( 'X-Analytics' ) ?? '';
 		parse_str( preg_replace( '/; */', '&', $currentHeader ), $headerItems );
 		$headerItems = array_merge( $headerItems, $newItems );
@@ -79,9 +68,9 @@ class XAnalytics implements
 	}
 
 	/**
-	 * @param ApiBase $module
+	 * @inheritDoc
 	 */
-	public function onAPIAfterExecute( $module ) {
+	public function onAPIAfterExecute( $module ): void {
 		self::generateHeader( $module->getOutput() );
 	}
 }
