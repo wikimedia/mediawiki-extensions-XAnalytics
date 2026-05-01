@@ -33,8 +33,7 @@ class XAnalytics implements
 	 * responses is done in one place, however, so for that use-case, the code is
 	 * reliable.
 	 *
-	 * X-Analytics items can be declared by hooking into 'XAnalyticsSetHeader' or
-	 * by calling XAnalytics;:addItem().
+	 * X-Analytics items can be declared by hooking into 'XAnalyticsSetHeader'.
 	 *
 	 * @see https://wikitech.wikimedia.org/wiki/X-Analytics
 	 * @param OutputPage $out
@@ -84,18 +83,5 @@ class XAnalytics implements
 	 */
 	public function onAPIAfterExecute( $module ) {
 		self::generateHeader( $module->getOutput() );
-	}
-
-	/**
-	 * Add an item to the X-Analytics header that will be output
-	 * @param string $name
-	 * @param string $value
-	 */
-	public static function addItem( $name, $value ) {
-		if ( self::$addedHeader ) {
-			// If the header is already set, we need to append to it and replace it
-			global $wgRequest;
-			self::createHeader( $wgRequest->response(), [ $name => $value ] );
-		}
 	}
 }
