@@ -4,18 +4,29 @@ namespace MediaWiki\Extension\XAnalytics;
 
 use MediaWiki\Api\Hook\APIAfterExecuteHook;
 use MediaWiki\Extension\XAnalytics\Hooks\HookRunner;
-use MediaWiki\MediaWikiServices;
+use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Output\Hook\BeforePageDisplayHook;
 use MediaWiki\Output\OutputPage;
-use MediaWiki\Request\WebResponse;
+use MediaWiki\Rest\Handler;
+use MediaWiki\Rest\Hook\RestAfterExecuteHook;
+use MediaWiki\Rest\Module\Module;
+use MediaWiki\Rest\RequestInterface;
+use MediaWiki\Rest\ResponseInterface;
+use RequestContext;
 
 class XAnalytics implements
 	BeforePageDisplayHook,
-	APIAfterExecuteHook
+	APIAfterExecuteHook,
+	RestAfterExecuteHook
 {
 
 	/** Whether the header has already been added */
-	private static bool $addedHeader = false;
+	private bool $addedHeader = false;
+
+	public function __construct(
+		private HookContainer $hookContainer
+	) {
+	}
 
 	/**
 	 * Set X-Analytics header before the output buffer is flushed.
@@ -33,44 +44,62 @@ class XAnalytics implements
 	 * @inheritDoc
 	 */
 	public function onBeforePageDisplay( $out, $skin ): void {
-		self::generateHeader( $out );
+		$this->generateHeader( $out );
+	}
+
+	/** @inheritDoc */
+	public function onAPIAfterExecute( $module ): void {
+		$this->generateHeader( $module->getOutput() );
+	}
+
+	/** @inheritDoc */
+	public function onRestAfterExecute(
+		Module $module,
+		?Handler $handler,
+		string $path,
+		RequestInterface $request,
+		ResponseInterface $response
+	): void {
+		// The REST API does not use OutputPage but the hook needs it so pass it anyway.
+		$headerItems = $this->getItems( RequestContext::getMain()->getOutput() );
+		if ( $headerItems ) {
+			$currentHeader = $response->getHeaderLine( 'X-Analytics' );
+			$newHeader = $this->getHeader( $currentHeader, $headerItems );
+			$response->setHeader( 'X-Analytics', $newHeader );
+		}
 	}
 
 	/**
 	 * Runs the XAnalyticsSetHeader hook and adds the header if necessary
 	 */
-	private static function generateHeader( OutputPage $out ): void {
-		if ( self::$addedHeader ) {
+	private function generateHeader( OutputPage $out ): void {
+		if ( $this->addedHeader ) {
 			// Only run once for API requests that use OutputPage
 			return;
 		}
-		self::$addedHeader = true;
+		$this->addedHeader = true;
 		$response = $out->getRequest()->response();
-		$headerItems = [];
-		( new HookRunner( MediaWikiServices::getInstance()->getHookContainer() ) )
-			->onXAnalyticsSetHeader( $out, $headerItems );
+		$headerItems = $this->getItems( $out );
 		if ( $headerItems ) {
-			self::createHeader( $response, $headerItems );
+			$currentHeader = $response->getHeader( 'X-Analytics' ) ?? '';
+			$newHeader = $this->getHeader( $currentHeader, $headerItems );
+			$response->header( 'X-Analytics: ' . $newHeader, true );
 		}
 	}
 
-	/**
-	 * Checks to see if the X-Analytics header is already set, and add
-	 * the new items to the header and set it
-	 */
-	private static function createHeader( WebResponse $response, array $newItems ): void {
-		$currentHeader = $response->getHeader( 'X-Analytics' ) ?? '';
-		parse_str( preg_replace( '/; */', '&', $currentHeader ), $headerItems );
-		$headerItems = array_merge( $headerItems, $newItems );
-
-		$headerValue = http_build_query( $headerItems, '', ';' );
-		$response->header( 'X-Analytics: ' . $headerValue, true );
+	private function getItems( OutputPage $out ): array {
+		$headerItems = [];
+		( new HookRunner( $this->hookContainer ) )->onXAnalyticsSetHeader( $out, $headerItems );
+		return $headerItems;
 	}
 
 	/**
-	 * @inheritDoc
+	 * Add new items to an existing header string.
 	 */
-	public function onAPIAfterExecute( $module ): void {
-		self::generateHeader( $module->getOutput() );
+	private function getHeader( ?string $currentHeader, array $newItems ): string {
+		$currentHeader ??= '';
+		parse_str( preg_replace( '/; */', '&', $currentHeader ), $headerItems );
+		$headerItems = array_merge( $headerItems, $newItems );
+		return http_build_query( $headerItems, '', ';' );
 	}
 }

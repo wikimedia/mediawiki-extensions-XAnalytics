@@ -21,11 +21,15 @@
 	},
 	"Hooks": {
 		"BeforePageDisplay": "main",
-		"APIAfterExecute": "main"
+		"APIAfterExecute": "main",
+		"RestAfterExecute": "main"
 	},
 	"HookHandlers": {
 		"main": {
-			"class": "MediaWiki\\Extension\\XAnalytics\\XAnalytics"
+			"class": "MediaWiki\\Extension\\XAnalytics\\XAnalytics",
+			"services": [
+				"HookContainer"
+			]
 		}
 	},
 	"manifest_version": 2
