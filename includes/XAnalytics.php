@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\XAnalytics;
 
 use MediaWiki\Api\Hook\APIAfterExecuteHook;
+use MediaWiki\Api\Hook\ApiMain__onExceptionHook;
 use MediaWiki\Extension\XAnalytics\Hooks\HookRunner;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Output\Hook\BeforePageDisplayHook;
@@ -17,6 +18,7 @@ use RequestContext;
 class XAnalytics implements
 	BeforePageDisplayHook,
 	APIAfterExecuteHook,
+	ApiMain__onExceptionHook,
 	RestAfterExecuteHook
 {
 
@@ -50,6 +52,11 @@ class XAnalytics implements
 	/** @inheritDoc */
 	public function onAPIAfterExecute( $module ): void {
 		$this->generateHeader( $module->getOutput() );
+	}
+
+	/** @inheritDoc */
+	public function onApiMain__onException( $apiMain, $e ) {
+		$this->generateHeader( $apiMain->getOutput() );
 	}
 
 	/** @inheritDoc */

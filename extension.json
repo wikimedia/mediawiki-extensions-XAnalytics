@@ -22,6 +22,7 @@
 	"Hooks": {
 		"BeforePageDisplay": "main",
 		"APIAfterExecute": "main",
+		"ApiMain::onException": "main",
 		"RestAfterExecute": "main"
 	},
 	"HookHandlers": {

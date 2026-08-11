@@ -2,7 +2,9 @@
 
 namespace MediaWiki\Extension\XAnalytics\Tests\Unit;
 
+use LogicException;
 use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiMain;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\XAnalytics\XAnalytics;
 use MediaWiki\HookContainer\HookContainer;
@@ -38,6 +40,17 @@ class XAnalyticsTest extends MediaWikiUnitTestCase {
 		$xAnalytics->onAPIAfterExecute( $module );
 
 		$this->assertSame( 'foo=bar', $module->getOutput()->getRequest()->response()->getHeader( 'X-Analytics' ) );
+	}
+
+	public function testOnApiMain__onException() {
+		$xAnalytics = new XAnalytics( $this->getHookContainer() );
+		$apiMain = $this->createNoOpMock( ApiMain::class, [ 'getOutput' ] );
+		$apiMain->method( 'getOutput' )->willReturn( $this->getOutputPage() );
+		$e = new LogicException( 'exception' );
+
+		$xAnalytics->onApiMain__onException( $apiMain, $e );
+
+		$this->assertSame( 'foo=bar', $apiMain->getOutput()->getRequest()->response()->getHeader( 'X-Analytics' ) );
 	}
 
 	public function testOnRestAfterExecute() {
