@@ -4,6 +4,7 @@ namespace MediaWiki\Extension\XAnalytics;
 
 use MediaWiki\Api\Hook\APIAfterExecuteHook;
 use MediaWiki\Api\Hook\ApiMain__onExceptionHook;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\XAnalytics\Hooks\HookRunner;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\Output\Hook\BeforePageDisplayHook;
@@ -13,7 +14,6 @@ use MediaWiki\Rest\Hook\RestAfterExecuteHook;
 use MediaWiki\Rest\Module\Module;
 use MediaWiki\Rest\RequestInterface;
 use MediaWiki\Rest\ResponseInterface;
-use RequestContext;
 
 class XAnalytics implements
 	BeforePageDisplayHook,
